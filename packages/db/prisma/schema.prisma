@@ -1,8 +1,5 @@
-
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -10,34 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model USer{
-  id            String    @Id @default(uuid()) 
-  email         String
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
   password      String
-  name          String 
-  photo         String
+  name          String
+  photo         String?
   rooms         Room[]
-  chat          Chat[]
-
+  chats         Chat[]
 }
 
-model Room{
-
-  id           Int      @Id @default(autoincrement())
-  slug         String   @unique
-  createdAt    DateTime @default(now())
-  adminId      String
-  admin        User     @relation(fields:[adminId],references:[id])
-  chats        chat[]
-
+model Room {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  createdAt   DateTime  @default(now())
+  adminId     String
+  admin       User      @relation(fields: [adminId], references: [id])
+  chats       Chat[]
 }
 
-model Chat{
-  id           Int       @Id @default(uuid())
-  roomId       Int
-  message      String
-  userId       String
-  room         Room      @relation(fields:[roomId],references:[id])
-  user         User      @relation(fields:[userId],references:[id])
-
+model Chat {
+  id        Int       @id  @default(autoincrement())
+  roomId    Int
+  message   String
+  userId    String
+  room      Room      @relation(fields: [roomId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
 }
