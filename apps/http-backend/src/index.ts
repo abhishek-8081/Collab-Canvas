@@ -77,20 +77,41 @@ app.post("/signin", async(req, res) => {
 })
 
 
-app.post("/room", middleware, (req, res) => {
+app.post("/room", middleware, async(req, res) => {
 
-    const data = CreateRoomSchema.safeParse(req.body);
-    if (!data.success) {
+    const parsedData = CreateRoomSchema.safeParse(req.body);
+    if (!parsedData.success) {
         res.json({
             mesaage: "Incorrect Inputs"
         })
         return;
     }
-    //db call
-    res.json({
-        roomId: "123"
+
+
+    //@ts-ignore :TODO:Fix this 
+    const userId = req.userId;
+    try{
+         const room = await prismaClient.room.create({
+        data:{
+        slug: parsedData.data.name,
+        adminId :userId
+        }
+
     })
 
+    
+    res.json({
+        roomId: room.id
+    })
+
+
+    }
+    catch(e){
+        res.status(411).json({
+            message:"Room already exist with this name"
+        })
+    }
+   
 })
 
 
