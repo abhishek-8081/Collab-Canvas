@@ -2,6 +2,7 @@
   "name": "http-backend",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
@@ -12,7 +13,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "zod": "^3.25.75"
+    "zod": "^3.25.75",
+    "@repo/db":"workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

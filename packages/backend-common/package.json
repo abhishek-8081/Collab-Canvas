@@ -2,7 +2,9 @@
   "name": "@repo/backend-common",
   "version": "1.0.0",
   "description": "",
+  "type":"module",
   "main": "index.js",
+  
   "exports": {
     "./config": "./src/index.ts"
   },
