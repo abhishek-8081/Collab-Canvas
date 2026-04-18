@@ -4,7 +4,7 @@ import { JWT_SECRET } from "@repo/backend-common/config";
 
 
 export function middleware(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers["authorization"] ?? "";
+    const token = (req.headers["authorization"] ?? "").replace(/^Bearer\s+/, "");
 
     const decoded = jwt.verify(token, JWT_SECRET);
 
