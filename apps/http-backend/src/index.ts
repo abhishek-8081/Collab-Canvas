@@ -23,6 +23,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+  console.log("Signup request received for:", req.body.username);
   const parsedData = CreateUserSchema.safeParse(req.body);
   if (!parsedData.success) {
     res.status(400).json({ message: "Incorrect inputs" });
