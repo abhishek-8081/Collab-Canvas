@@ -37,8 +37,9 @@ app.post("/signup", async (req, res) => {
       },
     });
     res.json({ userId: user.id });
-  } catch {
-    res.status(411).json({ message: "User already exists with this email" });
+  } catch (e) {
+    console.error("Signup error:", e);
+    res.status(411).json({ message: "Error during signup. It might be a database connection issue or the user already exists.", error: String(e) });
   }
 });
 
