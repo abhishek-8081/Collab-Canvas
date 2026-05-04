@@ -12,6 +12,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "start:http": "pnpm --filter=http-backend start",
+    "start:ws": "pnpm --filter=ws-backend start",
     "db:migrate": "turbo run build --filter=@repo/db && npx prisma migrate deploy --schema=packages/db/prisma/schema.prisma",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
