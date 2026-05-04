@@ -17,4 +17,4 @@ WORKDIR /app
 COPY --from=build /app /app
 
 EXPOSE 8080
-CMD [ "node", "apps/ws-backend/dist/index.js" ]
+CMD [ "npx", "tsx", "apps/ws-backend/src/index.ts" ]
