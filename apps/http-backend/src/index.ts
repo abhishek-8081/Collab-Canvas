@@ -9,11 +9,17 @@ import { prismaClient } from "@repo/db/client";
 const app = express();
 app.use(express.json());
 
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*";
+
 app.use((_req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
+});
+
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 app.post("/signup", async (req, res) => {
@@ -113,6 +119,7 @@ app.get("/shapes/:roomId", async (req, res) => {
   res.json({ elements: shape ? JSON.parse(shape.elements) : [] });
 });
 
-app.listen(3001, () => {
-  console.log("HTTP server running on port 3001");
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`HTTP server running on port ${PORT}`);
 });
